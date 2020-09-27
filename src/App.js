@@ -2,18 +2,20 @@ import React from 'react';
 import { Grid } from '@material-ui/core';
 
 
-import { SearchBar, VideoDetail } from './components';
-//import {VideoList} from './components/VideoList';
-
-
+import { SearchBar, VideoDetail, VideoList } from './components';
 import youtube from './api/Youtube';
 
 
 class App extends React.Component {
 
     state = {
-        video: [],
+        videos: [],
         selectedVideo: null
+    }
+
+
+    onVideoSelect=(video)=>{
+        this.setState({selectedVideo: video});
     }
 
 
@@ -35,12 +37,12 @@ class App extends React.Component {
 
     render() {
 
-        const {selectedVideo} = this.state
+        const {selectedVideo, videos} = this.state
 
 
         return (
             <Grid justify="center" container spacing={10}>
-                <Grid item xs={11}>
+                <Grid item xs={12}>
                     <Grid container spacing={10}>
                         <Grid item xs={12}>
                             <SearchBar onFormSubmit={this.handleSubmit} />
@@ -49,7 +51,7 @@ class App extends React.Component {
                             <VideoDetail video={selectedVideo}/>
                         </Grid>
                         <Grid item xs={4}>
-                            {/***Video List */}
+                            <VideoList videos={videos} onVideoSelect={this.onVideoSelect}/>
                         </Grid>
                     </Grid>
                 </Grid>
